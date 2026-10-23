@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ТИХО — комната звуков для сна и фокуса</title>
+  <meta name="description" content="Пять слоёв спокойных звуков, которые генерируются прямо в браузере. Собери свою ночь и поставь таймер до тишины.">
+  <meta name="theme-color" content="#071012">
+  <meta property="og:title" content="ТИХО — комната звуков">
+  <meta property="og:description" content="Пять слоёв спокойных звуков. Один таймер. Ничего лишнего.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://socdevvv.github.io/tiho/">
+  <meta property="og:image" content="https://socdevvv.github.io/tiho/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="texture" aria-hidden="true"></div>
+
+  <header class="topbar shell">
+    <a class="brand" href="./" aria-label="ТИХО — на главную">
+      <span class="brand-name">ТИХО</span>
+      <span class="brand-sub">комната звуков</span>
+    </a>
+    <div class="top-right">
+      <span class="live-state" id="live-state"><i></i><span id="live-label">тишина</span></span>
+      <span class="clock" id="clock">--:--</span>
+      <span class="tz">МСК</span>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="room">
+      <div class="visual">
+        <p class="eyebrow"><span class="dot"></span>ПЯТЬ СЛОЁВ · ОДНА НОЧЬ</p>
+        <div class="title-row">
+          <h1>ТИХО</h1>
+          <p class="title-note">собери<br><em>свою ночь</em></p>
+        </div>
+
+        <div class="orb-stage">
+          <div class="orb" id="orb" aria-hidden="true">
+            <span class="orb-haze"></span>
+            <span class="orb-ring ring-1"></span>
+            <span class="orb-ring ring-2"></span>
+            <span class="orb-ring ring-3"></span>
+            <span class="orb-seed s-rain"></span>
+            <span class="orb-seed s-wind"></span>
+            <span class="orb-seed s-fire"></span>
+            <span class="orb-seed s-waves"></span>
+            <span class="orb-seed s-hum"></span>
+            <div class="orb-center">
+              <span class="orb-kicker">ДО ТИШИНЫ</span>
+              <strong id="timer-display">∞</strong>
+              <small id="timer-note">без таймера</small>
+            </div>
+          </div>
+          <span class="orb-caption left">ВДОХ<br><b>4</b></span>
+          <span class="orb-caption right">ВЫДОХ<br><b>6</b></span>
+        </div>
+
+        <div class="under-orb">
+          <p id="now-playing" aria-live="polite">В КОМНАТЕ ТИХО</p>
+          <p class="breath">ДЫХАНИЕ <span>4</span> — <span>4</span> — <span>6</span></p>
+        </div>
+      </div>
+
+      <aside class="mixer" aria-label="Микшер звуков">
+        <div class="mixer-head">
+          <p class="eyebrow">МИКШЕР</p>
+          <span class="mix-state" id="mix-state">готово</span>
+        </div>
+
+        <div class="presets" role="group" aria-label="Пресеты">
+          <button type="button" class="preset" data-preset="rain">дождь</button>
+          <button type="button" class="preset" data-preset="fire">камин</button>
+          <button type="button" class="preset" data-preset="night">ночь</button>
+          <span class="custom" id="custom">свой микс</span>
+        </div>
+
+        <div class="layers" id="layers">
+          <div class="layer" data-layer="rain">
+            <button class="layer-toggle" type="button" role="switch" aria-checked="true" aria-label="Включить дождь"><span></span></button>
+            <span class="layer-num">01</span>
+            <span class="layer-name">ДОЖДЬ<small>мягкий ливень</small></span>
+            <input class="layer-range" type="range" min="0" max="100" value="30" aria-label="Громкость дождя">
+            <span class="layer-value">30</span>
+          </div>
+          <div class="layer" data-layer="wind">
+            <button class="layer-toggle" type="button" role="switch" aria-checked="true" aria-label="Включить ветер"><span></span></button>
+            <span class="layer-num">02</span>
+            <span class="layer-name">ВЕТЕР<small>низкий поток</small></span>
+            <input class="layer-range" type="range" min="0" max="100" value="35" aria-label="Громкость ветра">
+            <span class="layer-value">35</span>
+          </div>
+          <div class="layer" data-layer="fire">
+            <button class="layer-toggle" type="button" role="switch" aria-checked="false" aria-label="Включить огонь"><span></span></button>
+            <span class="layer-num">03</span>
+            <span class="layer-name">ОГОНЬ<small>тёплый треск</small></span>
+            <input class="layer-range" type="range" min="0" max="100" value="0" aria-label="Громкость огня">
+            <span class="layer-value">0</span>
+          </div>
+          <div class="layer" data-layer="waves">
+            <button class="layer-toggle" type="button" role="switch" aria-checked="true" aria-label="Включить волны"><span></span></button>
+            <span class="layer-num">04</span>
+            <span class="layer-name">ВОЛНЫ<small>медленный прибой</small></span>
+            <input class="layer-range" type="range" min="0" max="100" value="15" aria-label="Громкость волн">
+            <span class="layer-value">15</span>
+          </div>
+          <div class="layer" data-layer="hum">
+            <button class="layer-toggle" type="button" role="switch" aria-checked="true" aria-label="Включить гул"><span></span></button>
+            <span class="layer-num">05</span>
+            <span class="layer-name">ГУЛ<small>тёплый фон</small></span>
+            <input class="layer-range" type="range" min="0" max="100" value="25" aria-label="Громкость гула">
+            <span class="layer-value">25</span>
+          </div>
+        </div>
+
+        <div class="timer-box">
+          <div class="section-head">
+            <span>ТАЙМЕР СНА</span>
+            <span id="timer-status">выключен</span>
+          </div>
+          <div class="timer-options" role="group" aria-label="Таймер сна">
+            <button type="button" data-timer="15">15</button>
+            <button type="button" data-timer="30">30</button>
+            <button type="button" data-timer="45">45</button>
+            <button type="button" data-timer="60">60</button>
+            <button type="button" data-timer="0" class="is-active">∞</button>
+          </div>
+        </div>
+
+        <div class="transport">
+          <button class="play" id="play" type="button">
+            <span class="play-icon" aria-hidden="true">
+              <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5Z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24"><path d="M7 5h4v14H7V5Zm6 0h4v14h-4V5Z"/></svg>
+            </span>
+            <span id="play-label">ВКЛЮЧИТЬ ЗВУК</span>
+          </button>
+          <div class="master-row">
+            <label for="master">ОБЩАЯ ГРОМКОСТЬ</label>
+            <input id="master" type="range" min="0" max="100" value="70" aria-label="Общая громкость">
+            <span id="master-value">70</span>
+          </div>
+        </div>
+
+        <p class="hint">Звук генерируется в браузере. Наушники сделают ночь глубже.</p>
+      </aside>
+    </section>
+
+    <footer class="footer">
+      <span>ТИХО · 2026</span>
+      <span>БЕЗ ЗАПИСЕЙ · БЕЗ РЕКЛАМЫ · ТОЛЬКО ЗВУК</span>
+    </footer>
+  </main>
+
+  <noscript><p class="noscript">Для звуковой комнаты нужен JavaScript.</p></noscript>
+  <script src="script.js"></script>
+</body>
+</html>
